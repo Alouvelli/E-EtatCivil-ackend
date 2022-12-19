@@ -1,6 +1,6 @@
 package com.eetatcivil.eetatcivil.entities;
 
-import com.eetatcivil.eetatcivil.enums.modeExpedition;
+import com.eetatcivil.eetatcivil.enums.ModeExpedition;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,12 +19,12 @@ public class Expedition {
     private Long id;
     private Date date;
     private String description;
-    private String boiteEmail;
+    private String email;
     private String adresse;
     private String pays;
     @Enumerated(EnumType.STRING)
-    private modeExpedition modeExpedition;
-    @OneToMany(mappedBy = "expedition")
-    private List<Demande> demandes;
+    private ModeExpedition modeExpedition;
+    @ManyToOne
+    private Demande demande;
 
 }

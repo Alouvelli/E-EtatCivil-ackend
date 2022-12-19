@@ -22,17 +22,17 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Service
-@Transactional
-@AllArgsConstructor
-@Slf4j
+    @Service
+    @Transactional
+    @AllArgsConstructor
+    @Slf4j
 public class IActeService implements ActeService{
 
     private ActeRepository acteRepository;
     private ActeMappers dtoMapper;
 
     @Override
-    public ActeMariageDTO saveActeMariage(long id, int numRegistre,String nomEpoux, Date dateNaissEpoux, String lieuNaissEpoux, String domicileEpoux, String professionEpoux,String nomEpouse, Date dateNaissEpouse, String lieuNaissEpouse, String professionEpouse, String domicileEpouse, String regime, String temoin1, String temoin2) {
+    public ActeMariageDTO saveActeMariage(long id, String numRegistre,String nomEpoux, Date dateNaissEpoux, String lieuNaissEpoux, String domicileEpoux, String professionEpoux,String nomEpouse, Date dateNaissEpouse, String lieuNaissEpouse, String professionEpouse, String domicileEpouse, String regime, String temoin1, String temoin2) {
         ActeMariage acteMariage=new ActeMariage();
         acteMariage.setId(id);
         acteMariage.setNumRegistre(numRegistre);
@@ -56,7 +56,7 @@ public class IActeService implements ActeService{
 
 
     @Override
-    public ActeNaissanceDTO saveActeNaissance(long id, int numRegistre, String prenom, String nom, String lieunaiss, char genre, String prenomPere, String nomMere, String prenomMere) {
+    public ActeNaissanceDTO saveActeNaissance(long id, String numRegistre, String prenom, String nom, String lieunaiss, char genre, String prenomPere, String nomMere, String prenomMere) {
         ActeNaissance acteNaissance = new ActeNaissance();
         acteNaissance.setId(id);
         acteNaissance.setNumRegistre(numRegistre);
@@ -74,7 +74,7 @@ public class IActeService implements ActeService{
     }
 
     @Override
-    public ActeDecesDTO saveActeDeces(long id, int numRegistre, String nomDefunt, String lieuDeces, String nomPere, String nomMere) {
+    public ActeDecesDTO saveActeDeces(long id, String numRegistre, String nomDefunt, String lieuDeces, String nomPere, String nomMere) {
         ActeDeces acteDeces = new ActeDeces();
         acteDeces.setId(id);
         acteDeces.setNumRegistre(numRegistre);
@@ -127,7 +127,7 @@ public class IActeService implements ActeService{
     }
 
     @Override
-    public ActeNaissanceDTO updateActeNaissance(long id, int numRegistre, String prenom, String nom, String lieunaiss, char genre, String prenomPere, String nomMere, String prenomMere) {
+    public ActeNaissanceDTO updateActeNaissance(long id, String numRegistre, String prenom, String nom, String lieunaiss, char genre, String prenomPere, String nomMere, String prenomMere) {
         log.info("Enregistrement d'un acte de naissance");
         ActeNaissance acteNaissance = new ActeNaissance();
         acteNaissance.setId(id);
@@ -146,7 +146,7 @@ public class IActeService implements ActeService{
     }
 
     @Override
-    public ActeMariageDTO updateActeMariage(long id, int numRegistre, String nomEpoux, Date dateNaissEpoux, String lieuNaissEpoux, String domicileEpoux, String professionEpoux,String nomEpouse, Date dateNaissEpouse, String lieuNaissEpouse, String professionEpouse, String domicileEpouse, String regime, String temoin1, String temoin2) {
+    public ActeMariageDTO updateActeMariage(long id, String numRegistre, String nomEpoux, Date dateNaissEpoux, String lieuNaissEpoux, String domicileEpoux, String professionEpoux,String nomEpouse, Date dateNaissEpouse, String lieuNaissEpouse, String professionEpouse, String domicileEpouse, String regime, String temoin1, String temoin2) {
         ActeMariage acteMariage=new ActeMariage();
         acteMariage.setId(id);
         acteMariage.setNumRegistre(numRegistre);
@@ -167,7 +167,7 @@ public class IActeService implements ActeService{
     }
 
     @Override
-    public ActeDecesDTO updateActeDeces(long id, int numRegistre, String nomDefunt, String lieuDeces, String nomPere, String nomMere) {
+    public ActeDecesDTO updateActeDeces(long id, String numRegistre, String nomDefunt, String lieuDeces, String nomPere, String nomMere) {
         ActeDeces acteDeces = new ActeDeces();
         acteDeces.setId(id);
         acteDeces.setNumRegistre(numRegistre);
@@ -183,6 +183,27 @@ public class IActeService implements ActeService{
     @Override
     public void deleteActe(Long acteId) {
         acteRepository.deleteById(acteId);
+    }
+
+    @Override
+    public List<ActeNaissanceDTO> searchActesNaissance(String keyword) {
+        List<ActeNaissance> actesNaissance=acteRepository.searchActeNaissance(keyword);
+        List<ActeNaissanceDTO> acteNaissanceDTOS = actesNaissance.stream().map(an -> dtoMapper.fromActeNaissance(an)).collect(Collectors.toList());
+        return acteNaissanceDTOS;
+    }
+
+    @Override
+    public List<ActeDecesDTO> searchActesDeces(String keyword) {
+        List<ActeDeces> actesDeces=acteRepository.searchActeDeces(keyword);
+        List<ActeDecesDTO> acteDecesDTOS = actesDeces.stream().map(ad -> dtoMapper.fromActeDeces(ad)).collect(Collectors.toList());
+        return acteDecesDTOS;
+    }
+
+    @Override
+    public List<ActeMariageDTO> searchActesMariage(String keyword) {
+        List<ActeMariage> actesMariage=acteRepository.searchActeMariage(keyword);
+        List<ActeMariageDTO> acteMariageDTOS = actesMariage.stream().map(am -> dtoMapper.fromActeMariage(am)).collect(Collectors.toList());
+        return acteMariageDTOS;
     }
 
 }

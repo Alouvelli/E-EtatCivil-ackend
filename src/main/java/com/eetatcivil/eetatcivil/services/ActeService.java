@@ -11,11 +11,11 @@ import java.util.List;
 
 public interface ActeService {
 
-    ActeMariageDTO saveActeMariage(long id, int numRegistre, String nomEpoux, Date dateNaissEpoux, String lieuNaissEpoux, String domicileEpoux, String professionEpoux,String nomEpouse, Date dateNaissEpouse, String lieuNaissEpouse, String professionEpouse, String domicileEpouse, String regime, String temoin1, String temoin2);
+    ActeMariageDTO saveActeMariage(long id, String numRegistre, String nomEpoux, Date dateNaissEpoux, String lieuNaissEpoux, String domicileEpoux, String professionEpoux, String nomEpouse, Date dateNaissEpouse, String lieuNaissEpouse, String professionEpouse, String domicileEpouse, String regime, String temoin1, String temoin2);
 
-    ActeNaissanceDTO saveActeNaissance(long id, int numRegistre, String prenom, String nom, String lieunaiss, char genre, String prenomPere, String nomMere, String prenomMere);
+    ActeNaissanceDTO saveActeNaissance(long id, String numRegistre, String prenom, String nom, String lieunaiss, char genre, String prenomPere, String nomMere, String prenomMere);
 
-    ActeDecesDTO saveActeDeces(long id, int numRegistre,String nomDefunt, String lieuDeces, String nomPere, String nomMere);
+    ActeDecesDTO saveActeDeces(long id, String numRegistre, String nomDefunt, String lieuDeces, String nomPere, String nomMere);
 
     ActeMariageDTO getActeMariage(Long acteMariageId) throws ActeNotFoundException;
 
@@ -25,12 +25,17 @@ public interface ActeService {
 
     List<ActeDTO> listActes();
 
-    ActeNaissanceDTO updateActeNaissance(long id, int numRegistre, String prenom, String nom, String lieunaiss, char genre, String prenomPere, String nomMere, String prenomMere);
+    ActeNaissanceDTO updateActeNaissance(long id, String numRegistre, String prenom, String nom, String lieunaiss, char genre, String prenomPere, String nomMere, String prenomMere);
 
-    ActeMariageDTO updateActeMariage(long id, int numRegistre, String nomEpoux, Date dateNaissEpoux, String lieuNaissEpoux, String domicileEpoux, String professionEpoux,String nomEpouse, Date dateNaissEpouse, String lieuNaissEpouse, String professionEpouse, String domicileEpouse, String regime, String temoin1, String temoin2);
+    ActeMariageDTO updateActeMariage(long id, String numRegistre, String nomEpoux, Date dateNaissEpoux, String lieuNaissEpoux, String domicileEpoux, String professionEpoux,String nomEpouse, Date dateNaissEpouse, String lieuNaissEpouse, String professionEpouse, String domicileEpouse, String regime, String temoin1, String temoin2);
 
-    ActeDecesDTO updateActeDeces(long id, int numRegistre, String nomDefunt, String lieuDeces, String nomPere, String nomMere);
+    ActeDecesDTO updateActeDeces(long id, String numRegistre, String nomDefunt, String lieuDeces, String nomPere, String nomMere);
 
     void deleteActe(Long acteId);
 
+    List<ActeDecesDTO> searchActesDeces(String keyword);
+
+    List<ActeNaissanceDTO> searchActesNaissance(String keyword);
+
+    List<ActeMariageDTO> searchActesMariage(String keyword);
 }

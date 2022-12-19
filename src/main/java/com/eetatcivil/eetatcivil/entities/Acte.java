@@ -1,5 +1,6 @@
 package com.eetatcivil.eetatcivil.entities;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,10 +15,12 @@ import java.util.List;
 public abstract class Acte {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private int numRegistre;
+    private String numRegistre;
     private String mentionMarginale;
-    //private Date date;
+    @ManyToOne
+    private EtatCivil etatCivil;
     @OneToMany(mappedBy = "acte")
-    private List<EtatCivil> etatCivil;
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private List<Demande> demandes;
 
 }

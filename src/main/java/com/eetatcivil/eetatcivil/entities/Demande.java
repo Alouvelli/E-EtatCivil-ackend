@@ -1,34 +1,31 @@
 package com.eetatcivil.eetatcivil.entities;
 
+import com.eetatcivil.eetatcivil.enums.NatureActe;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.Date;
 import java.util.List;
 
 @Entity
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
+@Data @AllArgsConstructor @NoArgsConstructor
 
 public class Demande {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private int numRegistre;
-    private Date date;
-    private String civilite;
-    private String pays;
-    private String nationalite;
+    private String numRegistre;
     private String motif;
-    private String natureActe;
-    private int nbreExemplaire;
-    private String qualiteDemande;
+    private int nbreExplaire;
+    @Enumerated(EnumType.STRING)
+    private NatureActe natureActe;
     private Boolean etat;
-    private String commentaire;
+    @ManyToOne
+    private Acte acte;
     @ManyToOne
     private Facture facture;
-    @ManyToOne
-    private Expedition expedition;
+    @OneToMany(mappedBy = "demande")
+    private List<Expedition> expeditions;
+    @OneToMany(mappedBy = "demande")
+    private List<Facture> factures;
 }

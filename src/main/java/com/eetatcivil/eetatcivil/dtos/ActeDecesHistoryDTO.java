@@ -1,17 +1,11 @@
 package com.eetatcivil.eetatcivil.dtos;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
+import java.time.LocalTime;
 import java.util.Date;
-
 @Data
-
-public class ActeDecesDTO extends ActeDTO {
-
+public class ActeDecesHistoryDTO {
     private Long id;
     private String numRegistre;
     private String nomDefunt;

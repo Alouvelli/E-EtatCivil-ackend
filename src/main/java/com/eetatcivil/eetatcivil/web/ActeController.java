@@ -4,10 +4,8 @@ import com.eetatcivil.eetatcivil.dtos.ActeDTO;
 import com.eetatcivil.eetatcivil.dtos.ActeDecesDTO;
 import com.eetatcivil.eetatcivil.dtos.ActeMariageDTO;
 import com.eetatcivil.eetatcivil.dtos.ActeNaissanceDTO;
-import com.eetatcivil.eetatcivil.entities.ActeNaissance;
 import com.eetatcivil.eetatcivil.exceptions.ActeNotFoundException;
 import com.eetatcivil.eetatcivil.services.ActeService;
-import com.eetatcivil.eetatcivil.services.IActeService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -21,11 +19,6 @@ import java.util.List;
 
 public class ActeController {
     private ActeService acteService;
-
-    @GetMapping("/actes")
-    public List<ActeDTO> actes(){
-        return acteService.listActes();
-    }
 
     @GetMapping("/actesDeces/{id}")
     public ActeDecesDTO getActeDeces(@PathVariable(name = "id") Long acteDecesId) throws ActeNotFoundException {
@@ -42,6 +35,20 @@ public class ActeController {
         return acteService.getActeNaissance(acteNaissanceId);
     }
 
+    @GetMapping("/actesNaissance/search")
+    public List<ActeNaissanceDTO> searchActesNaissance(@RequestParam(name = "keyword",defaultValue = "") String keyword){
+        return acteService.searchActesNaissance("%"+keyword+"%");
+    }
+
+    @GetMapping("/actesDeces/search")
+    public List<ActeDecesDTO> searchActesDeces(@RequestParam(name = "keyword",defaultValue = "") String keyword){
+        return acteService.searchActesDeces("%"+keyword+"%");
+    }
+
+    @GetMapping("/actesMariage/search")
+    public List<ActeMariageDTO> searchActesMariage(@RequestParam(name = "keyword",defaultValue = "") String keyword){
+        return acteService.searchActesMariage("%"+keyword+"%");
+    }
 
     @PostMapping("/acteNaissance")
     public ActeNaissanceDTO saveActeNaissance(@RequestBody ActeNaissanceDTO acteNaissanceDTO){
@@ -73,6 +80,7 @@ public class ActeController {
         acteMariageDTO.setId(acteMariageId);
         this.acteService.updateActeMariage(acteMariageDTO.getId(), acteMariageDTO.getNumRegistre(), acteMariageDTO.getNomEpoux(), acteMariageDTO.getDateNaissEpoux(), acteMariageDTO.getLieuNaissEpoux(), acteMariageDTO.getDomicileEpoux(), acteMariageDTO.getProfessionEpoux(),acteMariageDTO.getNomEpouse(), acteMariageDTO.getDateNaissEpouse(), acteMariageDTO.getLieuNaissEpouse(), acteMariageDTO.getDomicileEpouse(), acteMariageDTO.getProfessionEpouse(),acteMariageDTO.getRegime(), acteMariageDTO.getTemoin1(), acteMariageDTO.getTemoin2());
         return acteMariageDTO;
+
     }
 
     @PutMapping("/actesDeces/acteDecesId")

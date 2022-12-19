@@ -15,10 +15,9 @@ import java.util.List;
 public class EtatCivil {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String code;
     private String libelle;
-    @OneToMany(mappedBy = "etatCivil")
-    private List<Commune> communes;
     @ManyToOne
-    private Acte acte;
+    private Commune commune;
+    @OneToMany(mappedBy = "etatCivil")
+    private List<Acte> actes;
 }

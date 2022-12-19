@@ -1,6 +1,6 @@
 package com.eetatcivil.eetatcivil.entities;
 
-import com.eetatcivil.eetatcivil.enums.modePaiement;
+import com.eetatcivil.eetatcivil.enums.ModePaiement;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -23,8 +23,8 @@ public class Facture {
     private Float tva;
     private Boolean etat;
     @Enumerated(EnumType.STRING)
-    private modePaiement modePaiement;
-    @OneToMany(mappedBy = "facture")
-    private List<Demande> demandes;
+    private ModePaiement modePaiement;
+    @ManyToOne
+    private Demande demande;
 
 }

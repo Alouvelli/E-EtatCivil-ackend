@@ -1,7 +1,6 @@
 package com.eetatcivil.eetatcivil.entities;
 
 import com.eetatcivil.eetatcivil.enums.RoleLibelle;
-import com.eetatcivil.eetatcivil.enums.modeExpedition;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
